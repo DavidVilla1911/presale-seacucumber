@@ -1,112 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sea Cucumber Presale</title>
-  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.37.0/dist/web3.min.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f8ff;
-      text-align: center;
-      padding: 20px;
-    }
-    #connectButton {
-      padding: 10px 20px;
-      background-color: #0077ff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin: 20px;
-      font-size: 18px;
-      border-radius: 5px;
-    }
-    #connectButton:hover {
-      background-color: #005bb5;
-    }
-    #buyButton {
-      padding: 15px 30px;
-      background-color: #ff5722;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-size: 20px;
-      border-radius: 5px;
-      display: none;
-    }
-    #buyButton:hover {
-      background-color: #d45f1a;
-    }
-    .info {
-      font-size: 18px;
-      color: #333;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCC Token Pre-sale</title>
+    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.37.0/dist/web3.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        #buyButton {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #connectButton {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <h1>Sea Cucumber Token Pre-Sale</h1>
-  <p class="info">Join the exclusive pre-sale of Sea Cucumber (SCC) tokens! Be part of the future!</p>
+    <div class="container">
+        <h1>SCC Token Pre-sale</h1>
+        <p>Connect your wallet to participate in the pre-sale of Sea Cucumber (SCC) tokens!</p>
+        <button id="connectButton">Connect Wallet</button>
+        <button id="buyButton" onclick="handlePurchase()">Buy Tokens</button>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.solana && window.solana.isPhantom) {
+                console.log("Phantom Wallet detected!");
 
-  <button id="connectButton">Connect Wallet</button>
-  <br><br>
-
-  <button id="buyButton">Buy SCC Tokens</button>
-
-  <script>
-    // Initialize the connection to Solana
-    let connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('devnet'), 'confirmed');
-
-    let wallet;
-
-    // Check if Phantom is installed
-    if (window.solana && window.solana.isPhantom) {
-      document.getElementById('connectButton').addEventListener('click', async () => {
-        try {
-          // Connect Phantom Wallet
-          wallet = await window.solana.connect();
-          console.log("Wallet connected: ", wallet.publicKey.toString());
-          document.getElementById('buyButton').style.display = 'inline-block';
-          document.getElementById('connectButton').style.display = 'none';
-        } catch (err) {
-          console.log("Wallet connection failed", err);
-        }
-      });
-    } else {
-      alert("Phantom Wallet is not installed. Please install it to participate in the presale.");
-    }
-
-    // Action to purchase SCC tokens
-    document.getElementById('buyButton').addEventListener('click', async () => {
-      if (!wallet) {
-        alert("Please connect your wallet first.");
-        return;
-      }
-
-      const buyerPublicKey = new solanaWeb3.PublicKey(wallet.publicKey.toString());
-      const presaleProgramId = new solanaWeb3.PublicKey("dRxFhMb8nojoWBLLRKMUHypwhHJYQ8AznUqn9S7d64v"); // Replace with your program ID
-      const transaction = new solanaWeb3.Transaction();
-
-      // Define the amount of SOL to send
-      const lamportsToSend = solanaWeb3.LAMPORTS_PER_SOL; // Example: send 1 SOL
-
-      // Create the transfer instruction (e.g., transfer SOL to presale program)
-      const transferInstruction = new solanaWeb3.SystemProgram.transfer({
-        fromPubkey: buyerPublicKey,
-        toPubkey: presaleProgramId,
-        lamports: lamportsToSend,
-      });
-
-      transaction.add(transferInstruction);
-
-      // Send transaction
-      try {
-        const signature = await solanaWeb3.sendAndConfirmTransaction(connection, transaction, [wallet], { commitment: 'confirmed' });
-        alert("Transaction successful: " + signature);
-      } catch (error) {
-        alert("Transaction failed: " + error);
-      }
-    });
-  </script>
-</body>
-</html>
+                const connectButton = document.getElementB
